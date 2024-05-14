@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>HOME</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-img src="assets/images/OIG1.jpeg" alt="Description of the image"></ion-img>
+  </ion-card>
+
+  <ion-card >
+    <ion-card-content class="custom-black">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label>Restaurants Near You</ion-label>
+          </ion-col>
+        </ion-row>
+        
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  
+
+
+
+
+
+  <ion-list>
+    <ion-item (click)="handleItemClick(item)" *ngFor="let item of restaurants">
+      <ion-thumbnail slot="start">
+        <img [src]="item.image" alt="Item Image" class="image-with-border">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h2>{{ item.name }}</h2>
+        <p>Restaurant: {{ item.restaurantName }}</p>
+        <p>Type: {{ item.dishType }}</p>
+        <p>Ratings: {{ item.ratings }}</p>
+        <p>Distance: {{ item.distance }} km away</p>
+        <p>Price: R{{ item.price }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+</ion-content>
+

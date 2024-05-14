@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-title> Account </ion-title>
+        </ion-col>
+        <ion-col size="12">
+          <ion-title> </ion-title>
+        </ion-col>
+        <ion-col size="12">
+          <ion-title> </ion-title>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+
+        <ion-col size="2" style="display: flex; justify-content: center; align-items: center;">
+          <ion-icon aria-hidden="true" name="person-outline"></ion-icon>
+        </ion-col>
+        
+        <ion-col size="8">
+          <ion-label class="ion-text-wrap">  
+            <h6>Account Details</h6>
+            <p>Username: {{account.username}}  </p>  
+            <p>Email: {{account.email}}</p>    
+          </ion-label> 
+        </ion-col>
+
+        <ion-col size="2" style="display: flex;  align-items: center;">
+          <a id="open-edit">{{ isAccountEmpty() ? 'ADD' : 'EDIT' }}</a>
+         
+
+        </ion-col>
+
+      </ion-row>
+
+      
+
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-row>
+
+    <ion-col size="2" style="display: flex; justify-content: center; align-items: center;">
+      <ion-icon aria-hidden="true" name="home"></ion-icon>
+    </ion-col>
+    
+    <ion-col size="8">
+      <ion-label class="ion-text-wrap">  
+        <h6>Manage Addresses</h6>
+        <p>University of Pretoria, Informatics</p>    
+      </ion-label> 
+    </ion-col>
+
+    <ion-col size="2" style="display: flex; justify-content: center; align-items: center;">
+      <ion-icon aria-hidden="true" name="arrow-forward-outline"></ion-icon>
+    </ion-col>
+
+  </ion-row>
+
+
+  
+  
+
+  <h2 style="margin-bottom: 5%;margin-left: 5%;">Past Orders</h2>
+  <ion-list>
+    <ion-item *ngFor="let item of orderItems">
+      <ion-row>
+      <ion-col size="12" style="display: flex; justify-content: center; align-items: center;">
+            
+              <img [src]="item[0].image" alt="Item Image" class="image-with-border" style="width: auto; height: auto; max-width: 70%; max-height: 70%; margin-right: 5%;">
+            
+            <ion-label class="ion-text-wrap">
+              <h3 class="text-right"> Delivered</h3>
+              <h3 class="text-right"> R {{ getTotalPrice(item) }}</h3>
+              <h3 class="text-right"> Total Items: {{ getTotalItems(item) }}</h3>
+            </ion-label>    
+          </ion-col>
+
+
+           
+
+              <ion-col size="6" style="display: flex; justify-content: center; align-items: center;">
+                <ion-button expand="block" color="primary"  size="small" (click)="ReOrder(item)">REORDER</ion-button>
+              </ion-col>
+              
+              <ion-col size="6" style="display: flex; justify-content: center; align-items: center;">
+                <ion-button id="open" expand="block" color="medium"  size="small" (click)="toggleModalTrue()">GET HELP</ion-button>
+              </ion-col>
+          
+            </ion-row>
+
+    </ion-item>
+    
+  </ion-list>
+
+  <ion-button expand="block" color="danger" (click)="clearOrders()">Clear Orders</ion-button>
+</ion-content>
+
+
+
+
+
+<ion-modal (ionBackdropTap)="toggleModalFalse()"  [isOpen]="showModal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    
+      <div class="block help" (click)="toggleconfirmModal()" >
+        <div class="help-modal">
+          <div class="header">
+            <h2>Need Help?</h2>
+          </div>
+          <div class="content">
+            <p>Welcome to our help section! Here you can find answers to common questions and get assistance with any issues you may be experiencing.</p>
+            <h3>Frequently Asked Questions</h3>
+            <ul>
+              <li>How do I place an order?</li>
+              <li>What payment methods do you accept?</li>
+              <li>Can I track my order?</li>
+              <li>How do I contact customer support?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal trigger="open-edit" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    
+      <div class="block">
+        <ion-content >
+          <ion-item>
+            <ion-label position="floating">Username</ion-label>
+            <ion-input type="text" [(ngModel)]="account.username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="account.email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" [(ngModel)]="account.password"></ion-input>
+          </ion-item>
+          
+          <ion-button fill="clear"expand="block"(click)="confirmModal()">Save</ion-button>
+          <ion-button fill="clear"expand="block"color="danger" (click)="confirmModalDelete()">Delete Account</ion-button>
+
+        </ion-content>
+      </div>
+    
+  </ng-template>
+</ion-modal>
